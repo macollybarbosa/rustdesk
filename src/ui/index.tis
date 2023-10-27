@@ -327,7 +327,7 @@ class MyIdMenu: Reactor.Component {
                 <div .separator />
                 <li #allow-darktheme><span>{svg_checkmark}</span>{translate('Dark Theme')}</li>
                 <Languages />
-                <li #about>{"Sobre o InfoPoint Remoto"}</li>
+                <li #about>{translate('About')} {" "}{handler.get_app_name()}</li>
             </menu>
         </popup>;
     }
@@ -369,14 +369,14 @@ class MyIdMenu: Reactor.Component {
 
     function showAbout() {
         var name = handler.get_app_name();
-        msgbox("custom-nocancel-nook-hasclose", "Sobre o InfoPoint Remoto", "<div style='line-height: 2em'> \
-            <div>Vers&atilde;o: " + handler.get_version() + " \
+        msgbox("custom-nocancel-nook-hasclose", translate("About") + " " + name, "<div style='line-height: 2em'> \
+            <div>Version: " + handler.get_version() + " \
             <div>Fingerprint: " + handler.get_fingerprint() + " \
-            <div .link .custom-event url='https://rustdesk.com'>" + "Vers&atilde;o modificada do RustDesk" + "</div> \
-            <div .link .custom-event url='https://www.infopointsoftware.com.br'>" + translate("Visite nosso site") + "</div> \
-        <div style='background: #2c8cff; color: white; padding: 1em; margin-top: 1em;'>Copyright &copy; 2023 InfoPoint Software\
+            <div .link .custom-event url='https://rustdesk.com/privacy.html'>" + translate("Privacy Statement") + "</div> \
+            <div .link .custom-event url='https://www.infopointsoftware.com.br'>" + translate("Website") + "</div> \
+	    <div style='background: #2c8cff; color: white; padding: 1em; margin-top: 1em;'>Copyright &copy; 2023 InfoPoint Software.\
             <br />" + handler.get_license() + " \
-            <p style='font-weight: bold'>InfoPoint Software - Suporte Remoto exclusivo M&atilde;os</p>\
+            <p style='font-weight: bold'>" + translate("Slogan_tip") + "</p>\
             </div>\
         </div>", "", function(el) {
             if (el && el.attributes) {

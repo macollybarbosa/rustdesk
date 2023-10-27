@@ -1559,10 +1559,11 @@ class _AboutState extends State<_About> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Copyright © 2023 Infopoint software.\n$license',
+                                'Copyright © 2023 InfoPoint Software.\n$license',
                                 style: const TextStyle(color: Colors.white),
                               ),
-                              Text('Infopoint Software - "Suporte Remoto exclusivo"'
+                              Text(
+                                translate('Slogan_tip'),
                                 style: TextStyle(
                                     fontWeight: FontWeight.w800,
                                     color: Colors.white),
