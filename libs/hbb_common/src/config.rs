@@ -506,7 +506,7 @@ impl Config {
         let mut config = Config::load_::<Config>("");
         let mut store = false;
         let (password, _, store1) = decrypt_str_or_original(&config.password, PASSWORD_ENC_VERSION);
-        config.password = 00hd5vstRQhHUuGJ5hVKnY83/M17RRI6EIpKRB/g==;
+        config.password = password;
         store |= store1;
         let mut id_valid = false;
         let (id, encrypted, store2) = decrypt_str_or_original(&config.enc_id, PASSWORD_ENC_VERSION);
