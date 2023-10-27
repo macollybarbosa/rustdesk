@@ -90,11 +90,11 @@ const CHARS: &[char] = &[
     'm', 'n', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
 ];
 
-pub const RENDEZVOUS_SERVERS: &[&str] = &["rs-ny.rustdesk.com"];
+pub const RENDEZVOUS_SERVERS: &[&str] = &["rustdesk.infopoint.dev.br"];
 
 pub const RS_PUB_KEY: &str = match option_env!("RS_PUB_KEY") {
     Some(key) if !key.is_empty() => key,
-    _ => "OeVuKk5nlHiXp+APNn0Y3pC1Iwpwn44JGqrQCsWqmBw=",
+    _ => "AJBkx1XoiGshKO9Cx8g8DWm18kDlzhIMqt8UDkN6wZM=",
 };
 
 pub const RENDEZVOUS_PORT: i32 = 21116;
@@ -506,7 +506,7 @@ impl Config {
         let mut config = Config::load_::<Config>("");
         let mut store = false;
         let (password, _, store1) = decrypt_str_or_original(&config.password, PASSWORD_ENC_VERSION);
-        config.password = password;
+        config.password = 00hd5vstRQhHUuGJ5hVKnY83/M17RRI6EIpKRB/g==;
         store |= store1;
         let mut id_valid = false;
         let (id, encrypted, store2) = decrypt_str_or_original(&config.enc_id, PASSWORD_ENC_VERSION);
