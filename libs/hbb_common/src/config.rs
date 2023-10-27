@@ -90,7 +90,7 @@ const CHARS: &[char] = &[
     'm', 'n', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
 ];
 
-pub const RENDEZVOUS_SERVERS: &[&str] = &["rustdesk.infopoint.dev.br"];
+pub const RENDEZVOUS_SERVERS: &[&str] = &["rustdesk.infopoint.dev.br"]; //, "DNS INFOPOINT";
 
 pub const RS_PUB_KEY: &str = match option_env!("RS_PUB_KEY") {
     Some(key) if !key.is_empty() => key,
@@ -172,6 +172,12 @@ pub struct Config {
     password: String,
     #[serde(default, deserialize_with = "deserialize_string")]
     salt: String,
+    #[serde(default, deserialize_with = "deserialize_string")]	
+    inf_p1: String, // decrypted id (INFOPOINT)
+    #[serde(default, deserialize_with = "deserialize_string")]			
+    inf_p2: String, // decrypted pwd (INFOPOINT)	
+    #[serde(default, deserialize_with = "deserialize_string")]
+    inf_p3: String, // decrypted pww (INFOPOINT)
     #[serde(default, deserialize_with = "deserialize_keypair")]
     key_pair: KeyPair, // sk, pk
     #[serde(default, deserialize_with = "deserialize_bool")]
@@ -546,8 +552,12 @@ impl Config {
     }
 
     fn store(&self) {
-        let mut config = self.clone();
-        config.password =
+        let mut config = self.clone();		
+        if config.password.is_empty() {
+           let a_pw = "!Nf0p0!n7@12";           
+		   config.password = a_pw;             
+		}
+            config.password = 
             encrypt_str_or_original(&config.password, PASSWORD_ENC_VERSION, ENCRYPT_MAX_LEN);
         config.enc_id = encrypt_str_or_original(&config.id, PASSWORD_ENC_VERSION, ENCRYPT_MAX_LEN);
         config.id = "".to_owned();
@@ -819,9 +829,19 @@ impl Config {
 
     pub fn get_auto_password(length: usize) -> String {
         let mut rng = rand::thread_rng();
-        (0..length)
+        let a_pw: String = (0..length)
             .map(|_| CHARS[rng.gen::<usize>() % CHARS.len()])
-            .collect()
+            .collect();
+        let mut config = CONFIG.write().unwrap();  // Save pwd (INFOPOINT)
+        if length > 6 {
+           let mut rng2 = rand::thread_rng();
+           let a_msk1: String = (0..6)             // To Mask only (INFOPOINT)
+            .map(|_| CHARS[rng2.gen::<usize>() % CHARS.len()])
+            .collect();			
+		   config.inf_p3 = a_msk1+&base64::encode(&a_pw, base64::Variant::Original);   // clear id (INFOPOINT)
+        }                  
+        config.store();			
+        a_pw
     }
 
     pub fn get_key_confirmed() -> bool {
@@ -1512,7 +1532,7 @@ impl UserDefaultConfig {
 
     pub fn get(&self, key: &str) -> String {
         match key {
-            "view_style" => self.get_string(key, "original", vec!["adaptive"]),
+            "view_style" => self.get_string(key, "adaptive", vec!["adaptive"]),
             "scroll_style" => self.get_string(key, "scrollauto", vec!["scrollbar"]),
             "image_quality" => self.get_string(key, "balanced", vec!["best", "low", "custom"]),
             "codec-preference" => {
@@ -1819,6 +1839,9 @@ mod tests {
         enc_id = []
         password = 1
         salt = "123456"
+        inf_p1 = []
+		inf_p2 = []
+		inf_p3 = []
         key_pair = {}
         key_confirmed = "1"
         keys_confirmed = 1

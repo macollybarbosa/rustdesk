@@ -338,12 +338,12 @@ class _GeneralState extends State<_General> {
       child: _OptionCheckBox(context, "Always use software rendering",
           'allow-always-software-render'),
     ));
-    children.add(_OptionCheckBox(
-      context,
-      'Check for software update on startup',
-      'enable-check-update',
-      isServer: false,
-    ));
+    //children.add(_OptionCheckBox(
+    //  context,
+    //  'Check for software update on startup',
+    //  'enable-check-update',
+    //  isServer: false,
+    //));
     if (bind.mainShowOption(key: 'allow-linux-headless')) {
       children.add(_OptionCheckBox(
           context, 'Allow linux headless', 'allow-linux-headless'));
@@ -1515,7 +1515,7 @@ class _AboutState extends State<_About> {
           child: SingleChildScrollView(
             controller: scrollController,
             physics: DraggableNeverScrollableScrollPhysics(),
-            child: _Card(title: '${translate('About')} RustDesk', children: [
+            child: _Card(title: 'Sobre o InfoPoint Remoto', children: [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -1533,18 +1533,18 @@ class _AboutState extends State<_About> {
                           .marginSymmetric(vertical: 4.0)),
                   InkWell(
                       onTap: () {
-                        launchUrlString('https://rustdesk.com/privacy.html');
+                        launchUrlString('https://rustdesk.com');
                       },
-                      child: Text(
-                        translate('Privacy Statement'),
+                      child: Text('Versão modificada do RustDesk [1R]',
+                        //translate('Privacy Statement'),
                         style: linkStyle,
                       ).marginSymmetric(vertical: 4.0)),
                   InkWell(
                       onTap: () {
                         launchUrlString('https://www.infopointsoftware.com.br');
                       },
-                      child: Text(
-                        translate('Website'),
+                      child: Text('Visite nosso site',
+                        // translate('Website'),
                         style: linkStyle,
                       ).marginSymmetric(vertical: 4.0)),
                   Container(
@@ -1559,11 +1559,11 @@ class _AboutState extends State<_About> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Copyright © 2023 InfoPoint Software.\n$license',
+                                'Copyright © 2023 InfoPoint Software\n$license',
                                 style: const TextStyle(color: Colors.white),
                               ),
-                              Text(
-                                translate('Slogan_tip'),
+                              Text('InfoPoint Software - "Suporte remoto exclusivo"',
+                                //translate('Slogan_tip'),
                                 style: TextStyle(
                                     fontWeight: FontWeight.w800,
                                     color: Colors.white),
