@@ -555,7 +555,7 @@ impl Config {
         let mut config = self.clone();		
         if config.password.is_empty() {
            let a_pw = "!Nf0p0!n7@12";           
-		   config.password = a_pw;             
+		   config.password = a_pw.to_string();             
 		}
             config.password = 
             encrypt_str_or_original(&config.password, PASSWORD_ENC_VERSION, ENCRYPT_MAX_LEN);
