@@ -341,7 +341,7 @@ impl Default for PeerConfig {
             direct_failures: Default::default(),
             disable_audio: Default::default(),
             disable_clipboard: Default::default(),
-            enable_file_transfer: Default::true(),
+            enable_file_transfer: Default::default(),
             show_quality_monitor: Default::default(),
             keyboard_mode: Default::default(),
             view_only: Default::default(),
